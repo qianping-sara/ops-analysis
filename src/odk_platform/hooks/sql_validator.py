@@ -37,7 +37,7 @@ async def validate_sql_before_execute(
             "hookSpecificOutput": {
                 "hookEventName": "PreToolUse",
                 "permissionDecision": "allow",
-                "updatedToolInput": tool_input,
+                "updatedInput": tool_input,
             }
         }
 

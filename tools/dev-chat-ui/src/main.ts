@@ -176,7 +176,13 @@ function appendUserBubble(text: string): void {
 }
 
 function scrollMessagesToBottom(): void {
-  messagesEl.scrollTop = messagesEl.scrollHeight;
+  requestAnimationFrame(() => {
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    const last = messagesEl.lastElementChild;
+    if (last) {
+      last.scrollIntoView({ block: "end", behavior: "auto" });
+    }
+  });
 }
 
 function showError(message: string): void {

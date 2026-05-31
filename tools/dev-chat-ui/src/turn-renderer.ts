@@ -35,9 +35,14 @@ function setStepLoading(details: HTMLDetailsElement, loading: boolean): void {
   details.classList.toggle("is-running", loading);
 }
 
-function createStepElement(title: string, body: string, opts?: { error?: boolean }): HTMLDetailsElement {
+function createStepElement(
+  title: string,
+  body: string,
+  opts?: { open?: boolean; error?: boolean },
+): HTMLDetailsElement {
   const details = document.createElement("details");
   details.className = "activity-step";
+  if (opts?.open) details.open = true;
   if (opts?.error) details.classList.add("is-error");
 
   const summary = document.createElement("summary");
@@ -137,7 +142,7 @@ export function createSequentialTurn(onScroll?: () => void): SequentialTurn {
   function appendThinkingChunk(chunk: string): void {
     thinkingText += chunk;
     if (!thinkingEl) {
-      thinkingEl = createStepElement("🧠 推理过程", "");
+      thinkingEl = createStepElement("🧠 推理过程", "", { open: false });
       root.appendChild(thinkingEl);
       setStepLoading(thinkingEl, true);
       scroll();
@@ -159,7 +164,7 @@ export function createSequentialTurn(onScroll?: () => void): SequentialTurn {
       body = String(input);
     }
     const title = `${stepIcon("tool", tool)} ${toolLabel(tool)}`;
-    const el = createStepElement(title, body || "(no input)");
+    const el = createStepElement(title, body || "(no input)", { open: false });
     el.dataset.toolUseId = id;
     setStepLoading(el, true);
     root.appendChild(el);
