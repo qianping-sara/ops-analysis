@@ -7,10 +7,10 @@ import uuid
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from odk_platform.config import get_settings
-from odk_platform.db.engine import get_db_session
-from odk_platform.db.models import PlatformUser
-from odk_platform.db.repos import UserRepo
+from claude_agent_platform.config import get_settings
+from claude_agent_platform.db.engine import get_db_session
+from claude_agent_platform.db.models import PlatformUser
+from claude_agent_platform.db.repos import UserRepo
 
 
 async def get_session() -> AsyncSession:

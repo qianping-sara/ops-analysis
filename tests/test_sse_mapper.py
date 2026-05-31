@@ -11,7 +11,7 @@ from claude_agent_sdk.types import (
     UserMessage,
 )
 
-from odk_platform.runtime.sse_mapper import message_to_sse, stream_event_to_sse
+from claude_agent_platform.runtime.sse_mapper import message_to_sse, stream_event_to_sse
 
 
 def test_stream_text_delta():

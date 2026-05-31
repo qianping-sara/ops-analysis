@@ -4,7 +4,7 @@ import os
 
 import pytest
 
-from odk_platform.mcp import postgres_tools
+from claude_agent_platform.mcp import postgres_tools
 
 pytestmark = pytest.mark.skipif(
     not os.environ.get("POSTGRES_URL"),

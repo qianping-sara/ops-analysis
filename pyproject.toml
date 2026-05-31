@@ -1,7 +1,7 @@
 [project]
-name = "odk-platform"
+name = "claude-agent-platform"
 version = "0.1.0"
-description = "ODKnowledge AI Agent Platform — analysis Agent (Phase 1)"
+description = "Claude Agent Platform — analysis Agent (Phase 1)"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -26,18 +26,18 @@ dev = [
 ]
 
 [project.scripts]
-odk-platform = "odk_platform.main:run"
-odk-postgres-mcp = "odk_platform.mcp.postgres_server:main"
+claude-agent-platform = "claude_agent_platform.main:run"
+claude-agent-postgres-mcp = "claude_agent_platform.mcp.postgres_server:main"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/odk_platform"]
+packages = ["src/claude_agent_platform"]
 
 [tool.hatch.build.targets.wheel.sources]
-"src/odk_platform" = "odk_platform"
+"src/claude_agent_platform" = "claude_agent_platform"
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"

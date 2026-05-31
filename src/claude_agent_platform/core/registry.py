@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from odk_platform.core.profile import AgentProfile, load_profile
+from claude_agent_platform.core.profile import AgentProfile, load_profile
 
 
 class AgentRegistry:

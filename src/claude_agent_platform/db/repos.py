@@ -9,7 +9,7 @@ from typing import Any
 from sqlalchemy import func, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from odk_platform.db.models import AgentChat, AgentMessage, PlatformUser
+from claude_agent_platform.db.models import AgentChat, AgentMessage, PlatformUser
 
 
 class UserRepo:

@@ -11,13 +11,13 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 from sse_starlette.sse import EventSourceResponse
 
-from odk_platform.api.deps import get_dev_user, get_session
-from odk_platform.core.registry import get_registry
-from odk_platform.db.models import PlatformUser
-from odk_platform.db.repos import ChatRepo, MessageRepo
-from odk_platform.memory.redis_store import get_redis_store
-from odk_platform.runtime.agent_runtime import AgentRuntime
-from odk_platform.runtime.message_presenter import present_messages
+from claude_agent_platform.api.deps import get_dev_user, get_session
+from claude_agent_platform.core.registry import get_registry
+from claude_agent_platform.db.models import PlatformUser
+from claude_agent_platform.db.repos import ChatRepo, MessageRepo
+from claude_agent_platform.memory.redis_store import get_redis_store
+from claude_agent_platform.runtime.agent_runtime import AgentRuntime
+from claude_agent_platform.runtime.message_presenter import present_messages
 
 router = APIRouter(prefix="/api/v1/agents", tags=["agents"])
 _runtime = AgentRuntime()

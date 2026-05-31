@@ -1,8 +1,8 @@
 {
-  "name": "odk-dev-chat-ui",
+  "name": "claude-agent-dev-chat-ui",
   "private": true,
   "version": "0.0.1",
-  "description": "Decoupled dev UI for testing ODK Agent Platform API",
+  "description": "Decoupled dev UI for testing Claude Agent Platform API",
   "type": "module",
   "scripts": {
     "dev": "vite",

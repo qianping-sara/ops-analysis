@@ -9,14 +9,14 @@ from typing import Any
 from claude_agent_sdk import ClaudeSDKClient
 from claude_agent_sdk.types import AssistantMessage, ResultMessage, StreamEvent
 
-from odk_platform.core.profile import AgentProfile
-from odk_platform.core.registry import get_registry
-from odk_platform.db.repos import ChatRepo, MessageRepo
-from odk_platform.memory.redis_store import RedisMemoryStore
-from odk_platform.memory.session_manager import SessionManager
-from odk_platform.runtime.client_pool import get_client_pool
-from odk_platform.runtime.sdk_serializer import extract_session_id, sdk_type_name, serialize_message
-from odk_platform.runtime.sse_mapper import message_to_sse, stream_event_to_sse
+from claude_agent_platform.core.profile import AgentProfile
+from claude_agent_platform.core.registry import get_registry
+from claude_agent_platform.db.repos import ChatRepo, MessageRepo
+from claude_agent_platform.memory.redis_store import RedisMemoryStore
+from claude_agent_platform.memory.session_manager import SessionManager
+from claude_agent_platform.runtime.client_pool import get_client_pool
+from claude_agent_platform.runtime.sdk_serializer import extract_session_id, sdk_type_name, serialize_message
+from claude_agent_platform.runtime.sse_mapper import message_to_sse, stream_event_to_sse
 
 
 class AgentRuntime:

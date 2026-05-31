@@ -11,7 +11,7 @@ load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 
 from claude_agent_sdk import AssistantMessage, ClaudeAgentOptions, ClaudeSDKClient, TextBlock
 
-from odk_platform.config import get_settings
+from claude_agent_platform.config import get_settings
 
 
 async def try_model(model: str) -> bool:

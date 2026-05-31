@@ -1,6 +1,6 @@
-# ODK Agent Platform 设计文档
+# Claude Agent Platform 设计文档
 
-> ODKnowledge AI 多 Agent 平台 — 基于 Claude Agent SDK 的后台分析与对话服务  
+> ODI Knowledge AI 多 Agent 平台 — 基于 Claude Agent SDK 的后台分析与对话服务  
 > 版本：v0.9  
 > 最后更新：2026-05-30
 
@@ -10,7 +10,9 @@
 
 ### 1.1 背景
 
-ODKnowledge AI 需要对知识库中的对话、用户信息、动作事件、知识覆盖等数据进行后台分析。平台需支持多种 Agent 能力（分析、问答、标题生成、PPT 等），对接不同前端服务与业务场景。
+ODI Knowledge AI 为销售团队提供知识问答，目前运营端需要对知识库中的对话、用户信息、动作事件、知识覆盖等数据进行后台分析，因此需要构建针对会话分析的Chat Analysis Agent
+
+同时，期望能有统一的agent平台未来支持多种 Agent 能力（分析、问答、标题生成、PPT 等），对接不同前端服务与业务场景。
 
 **当前阶段（Phase 1）** 仅实现 **`analysis` Agent**，首个落地场景为 **ChatTopicDaily 主题分析**（热点议题、漂移、区域/服务线、会话反查等）。架构仍按多 Agent 平台设计，便于后续在同一代码库扩展 `qa` / `title` / `ppt` 等 Profile。
 
@@ -53,7 +55,7 @@ ODKnowledge AI 需要对知识库中的对话、用户信息、动作事件、�
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  ODK Agent Platform                                         │
+│  Claude Agent Platform                                         │
 ├─────────────────────────────┬───────────────────────────────┤
 │  DATABASE_URL (Neon)        │  POSTGRES_URL (Azure PG)      │
 │  平台自有库                  │  业务库 odi_knowledge_ai       │
@@ -211,7 +213,7 @@ AND NOT (t.primary_regions = ARRAY['未提及']::text[])
 
 ```yaml
 id: analysis
-name: "ODKnowledge 分析 Agent"
+name: "ODI Knowledge AI's Chat Analysis Agent"
 description: "ChatTopicDaily 主题与会话数据分析（只读）"
 version: "1.0.0"
 
@@ -384,10 +386,10 @@ Skill **不会自动注入** SQL 片段；LLM 漏写 InternalUser 过滤时 Guar
 #### 4.5.7 实现文件
 
 ```
-src/odk_platform/guardrails/sql_rules.py   # 共享规则（Hook + MCP）
-src/odk_platform/hooks/sql_validator.py
-src/odk_platform/hooks/result_truncator.py   # 可选
-src/odk_platform/mcp/postgres_server.py
+src/claude_agent_platform/guardrails/sql_rules.py   # 共享规则（Hook + MCP）
+src/claude_agent_platform/hooks/sql_validator.py
+src/claude_agent_platform/hooks/result_truncator.py   # 可选
+src/claude_agent_platform/mcp/postgres_server.py
 ```
 
 ---
@@ -449,7 +451,7 @@ MCP_REGISTRY = {
     "postgres": {
         "type": "stdio",
         "command": "python",
-        "args": ["-m", "odk_platform.mcp.postgres_server"],
+        "args": ["-m", "claude_agent_platform.mcp.postgres_server"],
         "env": {
             # 业务库 — 与平台 DATABASE_URL 严格分离
             "DATABASE_URL": os.environ["POSTGRES_URL"],
@@ -823,7 +825,7 @@ Turn 2
 #### 6.6.7 实现模块
 
 ```
-src/odk_platform/memory/
+src/claude_agent_platform/memory/
   session_manager.py       # 热/冷分支
   redis_store.py           # meta + working_set(frames)
   turn_memory_compactor.py # 单 turn 多条 payload → 一个 frame
@@ -1220,7 +1222,7 @@ odi-ops-analysis/
 │                   ├── regions-and-services.md
 │                   └── drilldown-and-joins.md
 │
-└── src/odk_platform/
+└── src/claude_agent_platform/
     ├── main.py
     ├── config.py                 # 读取 CLAUDE_AZURE_* / DATABASE_URL / POSTGRES_URL / REDIS_URL
     ├── core/
@@ -1315,7 +1317,7 @@ odi-ops-analysis/
 | 分析库连接 | ✅ `POSTGRES_URL` → `odi_knowledge_ai` |
 | 只读 DB 账号 | ⏳ Prod 前替换 `POSTGRES_URL`；P1 靠代码层只读 |
 | Prompt Caching | ⏳ P1-c 结构准备 + P1-d Foundry 验证 |
-| 与 ODKnowledge 前端集成 / 鉴权 | ⏳ 待定 |
+| 与 ODI Knowledge 前端集成 / 鉴权 | ⏳ 待定 |
 | 触发方式（仅对话 vs 定时报告） | ⏳ Phase 1 仅对话 API |
 
 ---

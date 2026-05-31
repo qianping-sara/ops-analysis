@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from odk_platform.config import get_settings
-from odk_platform.guardrails.sql_rules import validate_sql
+from claude_agent_platform.config import get_settings
+from claude_agent_platform.guardrails.sql_rules import validate_sql
 
 
 async def validate_sql_before_execute(

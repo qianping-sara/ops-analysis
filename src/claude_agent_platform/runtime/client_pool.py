@@ -10,7 +10,7 @@ from typing import Any
 
 from claude_agent_sdk import ClaudeAgentOptions, ClaudeSDKClient
 
-from odk_platform.config import get_settings
+from claude_agent_platform.config import get_settings
 
 
 @dataclass

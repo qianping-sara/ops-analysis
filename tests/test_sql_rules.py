@@ -2,7 +2,7 @@
 
 import pytest
 
-from odk_platform.guardrails.sql_rules import validate_sql
+from claude_agent_platform.guardrails.sql_rules import validate_sql
 
 
 def test_reject_empty():

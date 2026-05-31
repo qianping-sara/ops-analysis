@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from odk_platform.runtime.sse_mapper import _format_tool_result
+from claude_agent_platform.runtime.sse_mapper import _format_tool_result
 
 
 def present_messages(payloads: list[dict[str, Any]]) -> list[dict[str, Any]]:

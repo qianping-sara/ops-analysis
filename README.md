@@ -1,6 +1,6 @@
-# ODK Agent Platform
+# Claude Agent Platform
 
-ODKnowledge AI 多 Agent 平台 — Phase 1：`analysis` Agent（ChatTopicDaily 主题分析）。
+ODI Knowledge AI 多 Agent 平台 — Phase 1：`analysis` Agent（ChatTopicDaily 主题分析）。
 
 ## 双库说明
 
@@ -16,8 +16,8 @@ ODKnowledge AI 多 Agent 平台 — Phase 1：`analysis` Agent（ChatTopicDaily 
 ```bash
 uv sync
 # 平台库迁移
-psql "$DATABASE_URL" -f src/odk_platform/db/migrations/001_init.sql
-uv run uvicorn odk_platform.main:app --reload --port 8000
+psql "$DATABASE_URL" -f src/claude_agent_platform/db/migrations/001_init.sql
+uv run uvicorn claude_agent_platform.main:app --reload --port 8000
 ```
 
 ## UAT 测试数据（可选）
@@ -33,7 +33,7 @@ uv run python scripts/uat_seed_chat_topic_daily.py --confirm-uat
 
 ```bash
 # 终端 1
-uv run uvicorn odk_platform.main:app --reload --port 8000
+uv run uvicorn claude_agent_platform.main:app --reload --port 8000
 
 # 终端 2
 cd tools/dev-chat-ui && npm install && npm run dev

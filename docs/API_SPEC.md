@@ -1,4 +1,4 @@
-# ODK Agent Platform — 前端集成 API 规范
+# Claude Agent Platform — 前端集成 API 规范
 
 > 版本：v1.0（对齐 Phase 1 实现）  
 > Base URL 示例：`http://localhost:8000`  
@@ -34,7 +34,7 @@ Phase 1 固定使用：`agent_type = analysis`
 
 ### 2.2 鉴权（Phase 1）
 
-**当前未启用鉴权。** 所有请求由服务端映射到固定 dev 用户（`dev@odk.local`）。
+**当前未启用鉴权。** 所有请求由服务端映射到固定 dev 用户（`dev@claude-agent.local`）。
 
 > **Phase 2 预留：** 将接入 SSO/JWT，`Authorization: Bearer <token>`，按登录用户隔离 chat。前端可先预留 Header 注入位。
 
@@ -122,7 +122,7 @@ GET /api/v1/agents
   "agents": [
     {
       "id": "analysis",
-      "name": "ODKnowledge 分析 Agent",
+      "name": "ODI Knowledge AI's Chat Analysis Agent",
       "description": "ChatTopicDaily 主题与会话数据分析（只读）",
       "version": "1.0.0"
     }

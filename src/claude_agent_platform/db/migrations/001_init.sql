@@ -1,5 +1,5 @@
 -- Platform DB schema (DATABASE_URL / Neon)
--- Run: psql $DATABASE_URL -f src/odk_platform/db/migrations/001_init.sql
+-- Run: psql $DATABASE_URL -f src/claude_agent_platform/db/migrations/001_init.sql
 
 CREATE TABLE IF NOT EXISTS platform_users (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),

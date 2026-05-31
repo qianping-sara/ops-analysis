@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from odk_platform.memory.projectors.registry import MemoryProjectorRegistry
+from claude_agent_platform.memory.projectors.registry import MemoryProjectorRegistry
 
 ASSISTANT_TEXT_CAP = 2048
 

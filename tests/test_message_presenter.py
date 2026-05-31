@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from odk_platform.runtime.message_presenter import present_messages
+from claude_agent_platform.runtime.message_presenter import present_messages
 
 
 def test_turn_segments_interleaved_order():

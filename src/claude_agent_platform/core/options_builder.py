@@ -7,11 +7,11 @@ from pathlib import Path
 
 from claude_agent_sdk import ClaudeAgentOptions, HookMatcher
 
-from odk_platform.config import get_settings
-from odk_platform.core.profile import AgentProfile
-from odk_platform.hooks.result_truncator import truncate_tool_result
-from odk_platform.hooks.sql_validator import validate_sql_before_execute
-from odk_platform.mcp.postgres_server import build_postgres_mcp_config
+from claude_agent_platform.config import get_settings
+from claude_agent_platform.core.profile import AgentProfile
+from claude_agent_platform.hooks.result_truncator import truncate_tool_result
+from claude_agent_platform.hooks.sql_validator import validate_sql_before_execute
+from claude_agent_platform.mcp.postgres_server import build_postgres_mcp_config
 
 
 def build_system_prompt(profile: AgentProfile) -> str:

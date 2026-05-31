@@ -7,7 +7,7 @@ from typing import Any
 
 import redis.asyncio as redis
 
-from odk_platform.config import get_settings
+from claude_agent_platform.config import get_settings
 
 
 class RedisMemoryStore:

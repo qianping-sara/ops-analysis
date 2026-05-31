@@ -6,7 +6,7 @@ import json
 
 import pytest
 
-from odk_platform.hooks.result_truncator import truncate_tool_result
+from claude_agent_platform.hooks.result_truncator import truncate_tool_result
 
 
 @pytest.mark.asyncio

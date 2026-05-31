@@ -5,13 +5,13 @@ from __future__ import annotations
 import uuid
 from typing import Any
 
-from odk_platform.core.options_builder import build_options, wrap_user_message
-from odk_platform.core.profile import AgentProfile
-from odk_platform.db.repos import MessageRepo
-from odk_platform.memory.context_builder import build_cold_prefix
-from odk_platform.memory.projectors.registry import MemoryProjectorRegistry, build_default_registry
-from odk_platform.memory.redis_store import RedisMemoryStore
-from odk_platform.memory.turn_memory_compactor import compact_turn
+from claude_agent_platform.core.options_builder import build_options, wrap_user_message
+from claude_agent_platform.core.profile import AgentProfile
+from claude_agent_platform.db.repos import MessageRepo
+from claude_agent_platform.memory.context_builder import build_cold_prefix
+from claude_agent_platform.memory.projectors.registry import MemoryProjectorRegistry, build_default_registry
+from claude_agent_platform.memory.redis_store import RedisMemoryStore
+from claude_agent_platform.memory.turn_memory_compactor import compact_turn
 
 
 class SessionManager:

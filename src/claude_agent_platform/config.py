@@ -42,7 +42,7 @@ class Settings(BaseSettings):
 
     # Runtime
     client_idle_seconds: int = Field(default=900, alias="CLIENT_IDLE_SECONDS")
-    dev_user_email: str = Field(default="dev@odk.local", alias="DEV_USER_EMAIL")
+    dev_user_email: str = Field(default="dev@claude-agent.local", alias="DEV_USER_EMAIL")
 
     @model_validator(mode="after")
     def validate_dual_db(self) -> Settings:

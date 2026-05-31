@@ -7,8 +7,8 @@ from typing import Any
 
 import asyncpg
 
-from odk_platform.config import get_settings
-from odk_platform.guardrails.sql_rules import validate_sql
+from claude_agent_platform.config import get_settings
+from claude_agent_platform.guardrails.sql_rules import validate_sql
 
 _pool: asyncpg.Pool | None = None
 

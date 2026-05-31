@@ -9,7 +9,7 @@ from typing import Any
 
 from claude_agent_sdk import ClaudeAgentOptions, create_sdk_mcp_server, tool
 
-from odk_platform.mcp import postgres_tools
+from claude_agent_platform.mcp import postgres_tools
 
 
 @tool("list_tables", "List public tables in the analysis database", {})

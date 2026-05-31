@@ -1,6 +1,6 @@
 # Dev Chat UI（后端联调页）
 
-与 `src/odk_platform` **完全解耦** 的静态前端，仅通过 [docs/API_SPEC.md](../../docs/API_SPEC.md) 中的 REST + SSE 调用后端，用于本地测试 `analysis` Agent。
+与 `src/claude_agent_platform` **完全解耦** 的静态前端，仅通过 [docs/API_SPEC.md](../../docs/API_SPEC.md) 中的 REST + SSE 调用后端，用于本地测试 `analysis` Agent。
 
 ## 能力
 
@@ -14,7 +14,7 @@
 **终端 1 — 后端**（项目根目录）：
 
 ```bash
-uv run uvicorn odk_platform.main:app --reload --port 8000
+uv run uvicorn claude_agent_platform.main:app --reload --port 8000
 ```
 
 **终端 2 — 本 UI**：
