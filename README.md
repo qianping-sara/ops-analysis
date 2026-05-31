@@ -27,6 +27,21 @@ uv run uvicorn odk_platform.main:app --reload --port 8000
 uv run python scripts/uat_seed_chat_topic_daily.py --confirm-uat
 ```
 
+## 联调前端（可选）
+
+与后端解耦的极简对话页，用于测试 New Chat / History / SSE 流式回复：
+
+```bash
+# 终端 1
+uv run uvicorn odk_platform.main:app --reload --port 8000
+
+# 终端 2
+cd tools/dev-chat-ui && npm install && npm run dev
+# → http://localhost:5173
+```
+
+详见 [tools/dev-chat-ui/README.md](tools/dev-chat-ui/README.md)，API 约定见 [docs/API_SPEC.md](docs/API_SPEC.md)。
+
 ## 文档
 
 见 [docs/DESIGN.md](docs/DESIGN.md)

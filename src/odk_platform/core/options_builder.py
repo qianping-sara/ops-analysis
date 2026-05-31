@@ -66,6 +66,7 @@ def build_options(
         mcp_servers=mcp_servers,
         hooks=hooks,
         permission_mode="acceptEdits",
+        include_partial_messages=True,
     )
 
     if resume and not cold_prefix:

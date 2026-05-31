@@ -7,7 +7,7 @@ from collections.abc import AsyncIterator
 from typing import Any
 
 from claude_agent_sdk import ClaudeSDKClient
-from claude_agent_sdk.types import AssistantMessage, ResultMessage, TextBlock, ToolUseBlock
+from claude_agent_sdk.types import AssistantMessage, ResultMessage, StreamEvent
 
 from odk_platform.core.profile import AgentProfile
 from odk_platform.core.registry import get_registry
@@ -16,6 +16,7 @@ from odk_platform.memory.redis_store import RedisMemoryStore
 from odk_platform.memory.session_manager import SessionManager
 from odk_platform.runtime.client_pool import get_client_pool
 from odk_platform.runtime.sdk_serializer import extract_session_id, sdk_type_name, serialize_message
+from odk_platform.runtime.sse_mapper import message_to_sse, stream_event_to_sse
 
 
 class AgentRuntime:
@@ -57,15 +58,29 @@ class AgentRuntime:
         turn_payloads: list[dict[str, Any]] = []
         seq = await message_repo.next_seq(chat_id)
 
-        # Persist user message
         user_payload = {"type": "user", "content": user_message}
         await message_repo.insert(chat_id=chat_id, seq=seq, sdk_type="user", payload=user_payload)
         turn_payloads.append(user_payload)
         seq += 1
 
+        skip_assistant_text = False
+        emitted_tool_ids: set[str] = set()
+        emitted_thinking = False
+
         try:
             await client.query(wrapped_message)
             async for message in client.receive_response():
+                if isinstance(message, StreamEvent):
+                    for event in stream_event_to_sse(message.event):
+                        if event.get("type") == "text_delta":
+                            skip_assistant_text = True
+                        elif event.get("type") in ("thinking_delta", "thinking"):
+                            emitted_thinking = True
+                        elif event.get("type") == "tool_use" and event.get("tool_use_id"):
+                            emitted_tool_ids.add(str(event["tool_use_id"]))
+                        yield event
+                    continue
+
                 payload = serialize_message(message)
                 stype = sdk_type_name(message)
 
@@ -97,8 +112,22 @@ class AgentRuntime:
                 if sid:
                     await chat_repo.update_sdk_session_id(chat_id, sid)
 
-                for event in _message_to_sse(message):
+                events, text_emitted, emitted_tool_ids, emitted_thinking = message_to_sse(
+                    message,
+                    skip_text=skip_assistant_text,
+                    emitted_tool_ids=emitted_tool_ids,
+                    emitted_thinking=emitted_thinking,
+                )
+                if text_emitted:
+                    skip_assistant_text = True
+                for event in events:
+                    if event.get("type") in ("thinking", "thinking_delta"):
+                        emitted_thinking = True
                     yield event
+
+                if isinstance(message, AssistantMessage):
+                    skip_assistant_text = False
+                    emitted_thinking = False
 
                 if isinstance(message, ResultMessage):
                     usage_dict = turn_stats or {}
@@ -146,20 +175,3 @@ class AgentRuntime:
         except Exception as exc:
             yield {"type": "error", "message": str(exc)}
             await pool.remove(agent_type, chat_id)
-
-
-def _message_to_sse(message: Any) -> list[dict[str, Any]]:
-    events: list[dict[str, Any]] = []
-    if isinstance(message, AssistantMessage):
-        for block in message.content:
-            if isinstance(block, TextBlock):
-                events.append({"type": "text_delta", "content": block.text})
-            elif isinstance(block, ToolUseBlock):
-                events.append(
-                    {
-                        "type": "tool_use",
-                        "tool": block.name,
-                        "input": block.input,
-                    }
-                )
-    return events

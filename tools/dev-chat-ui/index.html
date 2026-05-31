@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Analyst — Dev</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div id="app" class="layout is-booting">
+      <aside class="sidebar">
+        <button type="button" id="btn-new-chat" class="btn-new-chat" disabled>
+          <span class="icon-plus" aria-hidden="true">+</span>
+          New Chat
+        </button>
+        <p class="sidebar-label">History</p>
+        <div id="chat-list-wrap" class="chat-list-wrap" data-state="loading">
+          <div id="sidebar-loading" class="panel-loading sidebar-loading" aria-busy="true">
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="panel-loading-text">Loading history…</span>
+          </div>
+          <ul id="chat-list" class="chat-list"></ul>
+        </div>
+        <p id="backend-status" class="backend-status" title="Backend health"></p>
+      </aside>
+      <main class="main">
+        <div id="messages" class="messages" role="log" aria-live="polite">
+          <div id="main-loading" class="panel-loading main-loading" aria-busy="true">
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="panel-loading-text">Connecting to backend…</span>
+          </div>
+        </div>
+        <form id="composer" class="composer is-locked">
+          <textarea
+            id="input"
+            name="content"
+            rows="2"
+            placeholder="question"
+            autocomplete="off"
+            disabled
+          ></textarea>
+          <button
+            type="submit"
+            id="btn-send"
+            class="btn-send"
+            aria-label="Send"
+            disabled
+          >
+            ↑
+          </button>
+        </form>
+      </main>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

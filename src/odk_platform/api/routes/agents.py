@@ -143,13 +143,23 @@ async def send_message(
                 message_repo=message_repo,
                 redis_store=redis_store,
             ):
-                yield {"event": event.get("type", "message"), "data": json.dumps(event, ensure_ascii=False)}
-                await session.commit()
+                yield {
+                    "event": event.get("type", "message"),
+                    "data": json.dumps(event, ensure_ascii=False),
+                }
+            await session.commit()
         except Exception as exc:
             yield {"event": "error", "data": json.dumps({"type": "error", "message": str(exc)})}
             await session.rollback()
 
-    return EventSourceResponse(event_generator())
+    return EventSourceResponse(
+        event_generator(),
+        headers={
+            "Cache-Control": "no-cache, no-transform",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        },
+    )
 
 
 async def _get_chat_or_404(
