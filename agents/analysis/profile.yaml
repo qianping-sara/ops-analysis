@@ -1,0 +1,48 @@
+id: analysis
+name: "ODKnowledge 分析 Agent"
+description: "ChatTopicDaily 主题与会话数据分析（只读）"
+version: "1.0.0"
+
+model: ${CLAUDE_AZURE_FOUNDRY_MODEL}
+max_turns: 20
+
+invocation_modes:
+  - api
+delegates: []
+
+skills_dir: skills
+setting_sources:
+  - project
+
+mcp_servers:
+  - postgres
+
+allowed_tools:
+  - Skill
+  - mcp__postgres__list_tables
+  - mcp__postgres__describe_table
+  - mcp__postgres__run_query
+
+hooks:
+  custom:
+    - sql_validator
+    - result_truncator
+
+guardrails:
+  sql:
+    max_rows: 10000
+    statement_timeout_ms: 30000
+
+memory:
+  enabled: true
+  ttl_hours: 24
+  working_set_turns: 20
+  cold_resume_max_turns: 10
+  cold_resume_max_tokens: 32000
+
+prompt_caching:
+  enabled: true
+  mode: automatic
+  ttl: 5m
+  static_prefix:
+    inline_skill_references: true
